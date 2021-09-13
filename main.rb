@@ -7,16 +7,19 @@ def print_result(top)
       puts "#{name} \t #{count}"
       stop += 1
     end
-
   end
 end
 
+def get_top(data)
+  expansion = data.map { |item| File.extname(item) }.reject(&:empty?)
+  top = expansion.uniq.to_h { |x| [x.to_sym, expansion.count(x)] }.sort_by { |key, value| -value }
+end
+
+
+
 path = "test_data"
 Dir.chdir(path)
-data =  Dir.glob("**/*")
+data = Dir.glob("**/*")
 
-expansion = data.map { |item| File.extname(item) }.reject(&:empty?)
 
-top = expansion.uniq.to_h { |x| [x.to_sym, expansion.count(x)] }.sort_by { |key, value| -value }
-
-print_result top
+print_result(get_top(data))
