@@ -17,7 +17,7 @@ end
 
 
 
-path = "test_data"
+path = "test_data/test-1"
 Dir.chdir(path)
 data = Dir.glob("**/*")
 
