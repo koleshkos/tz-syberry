@@ -1,3 +1,5 @@
+require 'rake'
+
 MAX_TOP = 5
 
 def print_result(sorted_files)
@@ -16,7 +18,10 @@ def sorted(files)
     .sort_by { |_, count| count }.reverse
 end
 
-path = "test_data/test-1"
-files = Dir.glob("#{path}/**/*")
-
-print_result(sorted(files))
+namespace :custom_command do
+  task :top_five, [:path] do |task, path|
+    files = Dir.glob("#{path[:path]}/**/*")
+    puts "Top #{MAX_TOP} file formats in #{path[:path]} folder:"
+    print_result(sorted(files))
+  end
+end
